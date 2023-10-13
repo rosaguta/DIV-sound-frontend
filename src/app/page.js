@@ -11,9 +11,6 @@ const Home = () => {
   const router = useRouter();
   return (
     <div>
-      <button type="button" onClick={() => router.push('/soundboard')}>
-        Click me
-      </button>
       <Login />
       {/* <h1>Grid Layout Example</h1>
       <FileUpload />

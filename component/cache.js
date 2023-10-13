@@ -1,36 +1,16 @@
-import { useEffect, useState } from 'react';
-import { fetchDataFromAPI, getFromCache, saveToCache } from '../utils/cache'; // Import your cache utility functions
+import { useEffect } from 'react';
 
-const cache = ({ initialData }) => {
-  const [data, setData] = useState(initialData);
-
+const cache = ({data}) => {
   useEffect(() => {
-    const fetchData = async () => {
-      // Check if data is in the cache
-      const cachedData = getFromCache('yourCacheKey');
+    // Set data to local storage
+    localStorage.setItem('auth', data);
 
-      if (cachedData) {
-        setData(cachedData);
-      } else {
-        // If data is not in the cache, fetch it from your API or database
-        const fetchedData = await fetchDataFromAPI();
-        setData(fetchedData);
+    // Get data from local storage
+    const storedValue = localStorage.getItem('key');
+    console.log('Stored Value:', storedValue);
+  }, []);
 
-        // Save the data to the cache for future use
-        saveToCache('yourCacheKey', fetchedData);
-      }
-    };
-
-    fetchData();
-  }, []); // Empty dependency array ensures this effect runs once after the initial render
-
-  return (
-    <div>
-      {/* Render your component using the 'data' state */}
-      {/* For example: */}
-      {/* {data.map(item => <YourComponentItem key={item.id} item={item} />)} */}
-    </div>
-  );
+  return;
 };
 
 export default cache;
