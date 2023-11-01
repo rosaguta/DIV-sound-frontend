@@ -11,3 +11,11 @@
   cursor: pointer;
   text-align: right;
 }
+.buttonContainer {
+  display: flex;
+  align-items: center;
+}
+
+.buttonText {
+  margin-left: 8px; /* You can adjust the margin as needed to create space between the SVG and the text */
+}

@@ -10,7 +10,7 @@ const GridItem = ({ url, boardnames, fileid}) => {
   
   return (
     <div className={styles.gridItem}>
-      <DropDown boardnames={boardnames}></DropDown>
+      <DropDown boards={boardnames} audiofileid={fileid}></DropDown>
       <p>{lastPart}</p>
       <audio controls>
         <source src={url} type="audio/mpeg" />

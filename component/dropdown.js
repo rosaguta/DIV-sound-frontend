@@ -1,9 +1,43 @@
+'use client'
 import { Menu, Transition } from '@headlessui/react'
+import Cookies from 'js-cookie'
 import React, { Fragment } from 'react';
-const DropDown = ({ boardnames }) => {
+import dropdownitem from './dropdownitem.js'
 
+const DropDown = ({ boards, audiofileid }) => {
+    const userData = Cookies.get('user')
+
+    const parseddata = JSON.parse(userData)
+    const userid = parseddata.id;
     function classNames(...classes) {
         return classes.filter(Boolean).join(' ')
+    }
+    
+    const handleMenuitemClick = async ({ boardid }) => {
+        console.log(boardid)
+        try {
+            const response = await fetch(`http://localhost:8080/Boards/${boardid}/${audiofileid}?userid=${userid}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (response.ok) {
+                // Handle success, e.g., show a success message
+                console.log('file added to board');
+
+
+            } else {
+                // Handle errors, e.g., show an error message
+                console.error('Failed to add item');
+            }
+        } catch (error) {
+            // Handle network errors or other exceptions
+            console.error('Error occurred while adding item:', error);
+        }
+
+        
     }
 
     return (
@@ -25,23 +59,10 @@ const DropDown = ({ boardnames }) => {
             >
                 <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                     <div className="py-1">
-                        {boardnames.map((board) => (
-                            <Menu.Item key={board.id}>
-                                <a
-                                    href={board.name}
-                                    className={classNames(
-                                        'bg-gray-100 text-gray-900',
-                                        'block px-4 py-2 text-sm'
-                                    )}
-                                >
-                                    {board.name}
-                                </a>
-                            </Menu.Item>
+                        {boards.map((board) => (
+                            <dropdownitem boardid={board.id} fileid={audiofileid} boardname={board.name}/>
+                            
                         ))}
-
-
-
-
                     </div>
                 </Menu.Items>
             </Transition>
