@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation'; // Import the useRouter hook from Next.js
-import getStaticProps from './cache'
+import Cookies from 'js-cookie';
 
 const Login = () => {
   const router = useRouter(); // Use the useRouter hook inside the functional component
@@ -9,14 +9,14 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const handleLogin = async () => {
     try {
-      const response = await fetch(`http://localhost:8080/Users/Login?email=${username}&Password=${password}`);
+      const response = await fetch(`http://localhost:8080/Users/Login?username=${username}&Password=${password}`);
       const data = await response.json();
 
       if (data.statusCode === 200) {
         // Successful login, redirect to /soundboard
+        Cookies.set('user', JSON.stringify(data.user), { expires: 1 });
         router.push('/soundboard'); // Use router.push inside the component body
-        console.log('Login successful:', data.user);
-        getStaticProps(data)
+        // console.log('Login successful:', data.user);
       } else {
         // Unauthorized, handle error (show error message, etc.)
         console.error('Login failed:', data.message);

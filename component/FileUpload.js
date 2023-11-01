@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import Router from 'next/router'
+import Cookies from 'js-cookie';
 
 const FileUpload = () => {
   const [file, setFile] = useState(null);
@@ -9,18 +11,26 @@ const FileUpload = () => {
   };
 
   const handleUpload = async () => {
+    // const router = useRouter()
+    const userData = Cookies.get('user')
+
+    const parseddata = JSON.parse(userData)
+    const userid = parseddata.id
     if (file) {
       const formData = new FormData();
       formData.append('formFile', file);
 
       try {
-        const response = await fetch('http://localhost:8080/AudioFile?Uploaderid=3', {
+        const response = await fetch(`http://localhost:8080/AudioFiles?Uploaderid=${userid}`, {
           method: 'POST',
           body: formData,
         });
 
         if (response.ok) {
           console.log('File uploaded successfully!');
+          location.reload()
+
+          // Router.reload(window.location.pathname);
         } else {
           console.error('Failed to upload file');
         }

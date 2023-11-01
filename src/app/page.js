@@ -8,13 +8,9 @@ import { useRouter } from 'next/navigation';
 
 
 const Home = () => {
-  const router = useRouter();
   return (
     <div>
       <Login />
-      {/* <h1>Grid Layout Example</h1>
-      <FileUpload />
-      <GridContainer id='3' /> */}
     </div>
 
   );

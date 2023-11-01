@@ -6,7 +6,7 @@ const cache = ({data}) => {
     localStorage.setItem('auth', data);
 
     // Get data from local storage
-    const storedValue = localStorage.getItem('key');
+    const storedValue = localStorage.getItem('auth');
     console.log('Stored Value:', storedValue);
   }, []);
 
