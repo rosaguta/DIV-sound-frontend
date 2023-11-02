@@ -1,26 +1,26 @@
-const dropdownitem = ({boardid, fileid}) => {
+// const dropdownitem = ({boardid, fileid}) => {
 
-    return(
-        <Menu.Item key={board.id}>
-                                <a
-                                    // href="#"
-                                    className={classNames(
-                                        'bg-white-100 text-gray-900',
-                                        'block px-4 py-2 text-sm'
-                                    )}
-                                    onClick={() => {
-                                        if (board.id !== undefined) {
-                                            const bid = Number(board.id)
-                                            handleMenuitemClick(board.name);
-                                        } else {
-                                            console.error('board.id is undefined:', board);
-                                        }
-                                    }}
-                                >
-                                    {board.id}
-                                </a>
-                            </Menu.Item>
-    )
-}
+//     return(
+//         <Menu.Item key={board.id}>
+//                                 <a
+//                                     // href="#"
+//                                     className={classNames(
+//                                         'bg-white-100 text-gray-900',
+//                                         'block px-4 py-2 text-sm'
+//                                     )}
+//                                     onClick={() => {
+//                                         if (board.id !== undefined) {
+//                                             const bid = Number(board.id)
+//                                             handleMenuitemClick(board.name);
+//                                         } else {
+//                                             console.error('board.id is undefined:', board);
+//                                         }
+//                                     }}
+//                                 >
+//                                     {board.id}
+//                                 </a>
+//                             </Menu.Item>
+//     )
+// }
 
-export default dropdownitem
+// export default dropdownitem

@@ -1,44 +1,45 @@
-'use client'
 import { Menu, Transition } from '@headlessui/react'
-import Cookies from 'js-cookie'
 import React, { Fragment } from 'react';
-import dropdownitem from './dropdownitem.js'
+import Cookies from 'js-cookie';
 
-const DropDown = ({ boards, audiofileid }) => {
+const addfile = async (bid, audio_id) => {
     const userData = Cookies.get('user')
 
     const parseddata = JSON.parse(userData)
-    const userid = parseddata.id;
+    const userid = parseddata.id
+
+    try {
+        const response = await fetch(`http://localhost:8080/Boards/${bid}/${audio_id}?userid=${userid}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (response.ok) {
+            // Handle success, e.g., show a success message
+            console.log('file added to board');
+
+
+        } else {
+            // Handle errors, e.g., show an error message
+            console.error('Failed to add item');
+        }
+    } catch (error) {
+        // Handle network errors or other exceptions
+        console.error('Error occurred while adding item:', error);
+    }
+
+}
+const DropDown = ({ boards , audiofileid}) => {
+
     function classNames(...classes) {
         return classes.filter(Boolean).join(' ')
     }
-    
-    const handleMenuitemClick = async ({ boardid }) => {
-        console.log(boardid)
-        try {
-            const response = await fetch(`http://localhost:8080/Boards/${boardid}/${audiofileid}?userid=${userid}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-
-            if (response.ok) {
-                // Handle success, e.g., show a success message
-                console.log('file added to board');
-
-
-            } else {
-                // Handle errors, e.g., show an error message
-                console.error('Failed to add item');
-            }
-        } catch (error) {
-            // Handle network errors or other exceptions
-            console.error('Error occurred while adding item:', error);
-        }
-
-        
+    if (!boards || !Array.isArray(boards) || boards.length === 0) {
+        return null;
     }
+    
 
     return (
         <Menu as="div" className="relative inline-block text-left">
@@ -60,9 +61,23 @@ const DropDown = ({ boards, audiofileid }) => {
                 <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                     <div className="py-1">
                         {boards.map((board) => (
-                            <dropdownitem boardid={board.id} fileid={audiofileid} boardname={board.name}/>
-                            
+                            <Menu.Item key={board.id}>
+                                <a
+                                    onClick={() => addfile(board.id, audiofileid)}
+                                    // href={board.name}
+                                    className={classNames(
+                                        'bg-gray-100 text-gray-900',
+                                        'block px-4 py-2 text-sm'
+                                    )}
+                                >
+                                    {board.name}
+                                </a>
+                            </Menu.Item>
                         ))}
+
+
+
+
                     </div>
                 </Menu.Items>
             </Transition>

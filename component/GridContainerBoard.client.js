@@ -10,14 +10,16 @@ const GridContainerBoard = ({ json }) => {
   // Check if the ID of the first item in audioList is null
   const isFirstItemNull = audioList.length > 0 && audioList[0].id === null;
 
-  return (
+  return (<div>
+    <h2>{json.name}</h2>
     <div className={styles.gridContainer}>
-      <h1>{json.name}</h1>
+
       {/* Check if the ID of the first item is not null before rendering GridItem */}
       {!isFirstItemNull && audioList.map((audio) => (
         <GridItem url={audio.url} key={audio.id} />
       ))}
     </div>
+  </div>
   );
 };
 

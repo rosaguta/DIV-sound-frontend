@@ -1,6 +1,6 @@
 import styles from './GridItem.module.css';
 import Cookies from 'js-cookie'
-const DeleteButton = ({ audiofileid }) => {
+const DeleteButton = ({ audiofileid , ftppath}) => {
     const deleteItem = async () => {
 
         const userData = Cookies.get('user')
