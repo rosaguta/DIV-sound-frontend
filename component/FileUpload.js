@@ -1,24 +1,30 @@
-import { useState } from 'react';
-import Router from 'next/router'
+import React, { useState } from 'react';
+import Router from 'next/router';
 import Cookies from 'js-cookie';
 
 const FileUpload = () => {
-  const [file, setFile] = useState(null);
+  const [files, setFiles] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleFileChange = (event) => {
-    const selectedFile = event.target.files[0];
-    setFile(selectedFile);
+    const selectedFiles = event.target.files;
+    setFiles([...selectedFiles]);
   };
 
   const handleUpload = async () => {
-    // const router = useRouter()
-    const userData = Cookies.get('user')
+    const userData = Cookies.get('user');
+    const parseddata = JSON.parse(userData);
+    const userid = parseddata.id;
 
-    const parseddata = JSON.parse(userData)
-    const userid = parseddata.id
-    if (file) {
+    if (files.length > 0) {
+      setIsLoading(true); // Set loading state to true when starting the upload
+
       const formData = new FormData();
-      formData.append('formFile', file);
+
+      // Append each file to the FormData object with the same key
+      files.forEach((file, index) => {
+        formData.append(`formFiles`, file);
+      });
 
       try {
         const response = await fetch(`http://localhost:8080/AudioFiles?Uploaderid=${userid}`, {
@@ -27,25 +33,29 @@ const FileUpload = () => {
         });
 
         if (response.ok) {
-          console.log('File uploaded successfully!');
-          location.reload()
-
-          // Router.reload(window.location.pathname);
+          console.log('Files uploaded successfully!');
+          location.reload();
         } else {
-          console.error('Failed to upload file');
+          console.error('Failed to upload files');
         }
       } catch (error) {
-        console.error('Error uploading file:', error);
+        console.error('Error uploading files:', error);
+      } finally {
+        setIsLoading(false); // Reset loading state to false after the upload is completed or failed
       }
     } else {
-      console.error('No file selected!');
+      console.error('No files selected!');
     }
   };
 
   return (
     <div>
-      <input type="file" onChange={handleFileChange} />
+      <input type="file" onChange={handleFileChange} multiple />
       <button onClick={handleUpload}>Upload</button>
+
+      {isLoading && <p>Uploading files...</p>}
+      {/* Alternatively, you can replace the text with a spinning loader component */}
+      {/* {isLoading && <SpinnerComponent />} */}
     </div>
   );
 };

@@ -11,6 +11,7 @@ export default function Page() {
 
   const parseddata = JSON.parse(userData)
   const userid = parseddata.id
+  const username = parseddata.username
   // if (userData) {
     const [jsonData, setJsonData] = useState(null);
     useEffect(() => {
@@ -34,7 +35,7 @@ export default function Page() {
   return (
     <div className={Styles.container}>
       <div>
-        <Sidebar boards={jsonData} />
+        <Sidebar boards={jsonData} username={username}/>
       </div>
       <div className={Styles.mainContent}>
         <FileUpload />

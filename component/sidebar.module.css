@@ -39,3 +39,9 @@
     padding: 20px;
     background-color: #f9f9f9;
   }
+  .bottomText {
+    position:absolute;
+    bottom: 0;
+    margin-bottom: 2rem;
+    font-size: larger
+  }

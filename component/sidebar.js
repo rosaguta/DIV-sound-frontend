@@ -3,7 +3,10 @@ import Link from 'next/link';
 import Styles from './sidebar.module.css'
 import GetBoards from './GetBoards' 
 
-const Sidebar = ({boards}) => {
+
+const Sidebar = ({boards, username}) => {
+
+
   return (
     <div className={Styles.sidebar}>
       <img src='https://git.digitalindividuals.com/uploads/-/system/appearance/header_logo/1/div_logo_2.png'></img>
@@ -19,6 +22,9 @@ const Sidebar = ({boards}) => {
           </Link>
         </li>
       </ul>
+      <div className={Styles.bottomText}>
+        <p>Hello {username}</p>
+      </div>
     </div>
   );
 };
