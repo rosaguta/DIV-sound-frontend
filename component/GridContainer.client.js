@@ -30,7 +30,7 @@ const GridContainer = ({ id }) => {
     <div className={styles.gridContainer}>
       <script>console.log(audioUrls)</script>
       {audioUrls.map((audio) => (
-        <GridItem key={audio.id} url={audio.url} boardnames={boardNames} fileid={audio.id} ftppath={audio.path}/>
+        <GridItem key={audio.id} url={audio.url} boardnames={boardNames} fileid={audio.id}/>
       ))} 
     </div>
   );

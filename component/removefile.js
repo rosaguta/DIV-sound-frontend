@@ -1,6 +1,6 @@
 import styles from './GridItem.module.css';
 import Cookies from 'js-cookie'
-const DeleteButton = ({ audiofileid}) => {
+const RemoveFromBoardButton = ({ audiofileid, boardid}) => {
     const deleteItem = async () => {
 
         const userData = Cookies.get('user')
@@ -9,7 +9,7 @@ const DeleteButton = ({ audiofileid}) => {
         const userid = parseddata.id
 
         try {
-            const response = await fetch(`http://localhost:8080/AudioFiles?audiofileid=${audiofileid}&userid=${userid}`, {
+            const response = await fetch(`http://localhost:8080/Boards/${boardid}/${audiofileid}?userid=${userid}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -39,9 +39,9 @@ const DeleteButton = ({ audiofileid}) => {
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                     <path d="M12 10.586l4.293-4.293 1.414 1.414-4.293 4.293 4.293 4.293-1.414 1.414-4.293-4.293-4.293 4.293-1.414-1.414 4.293-4.293-4.293-4.293 1.414-1.414z" />
                 </svg>
-                <span className={styles.buttonText}>DELETE ME!</span>
+                <span className={styles.buttonText}>REMOVE ME FROM BOARD</span>
             </div>
         </button>
     )
 }
-export default DeleteButton
+export default RemoveFromBoardButton
