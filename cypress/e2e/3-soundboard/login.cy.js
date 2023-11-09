@@ -10,7 +10,7 @@ describe('login', () => {
 
         cy.get('[placeholder="Username"]').type(username);
         cy.get('[placeholder="Password"]').type(password);
-        cy.get('button').click();
+        cy.contains('Login').click();
         cy.contains('p', 'Hello string').should('exist');   
     })
     it ('return an error message because the user is unauthenticated', () =>{
@@ -41,10 +41,45 @@ describe('landing page', () => {
             expect($divElement).to.contain('congrats.mp3');   
         })
     })
+    it('creates a new soundboard',()=>{
+        cy.contains('p', 'Create Soundboard').click()
+        cy.get('input[name="boardname"]').type('WOWOWOW');
+        cy.contains('button', 'Submit').click()
+
+        cy.contains('a', 'WOWOWOW').click()
+        cy.get('h2').should('have.text', 'All FilesWOWOWOW');
+        
+    })
+    it('adds file to board', () =>{
+
+        cy.contains('Add To:').click();
+        cy.get('[role="menuitem"]').contains('WOWOWOW').click()
+        cy.contains('a', 'WOWOWOW').click()
+        
+        cy.contains('REMOVE ME FROM BOARD').should('exist')
+    })
+    it('removes a file from a board', ()=>{
+        cy.contains('a', 'WOWOWOW').click()
+        cy.contains('REMOVE ME FROM BOARD').click()
+
+        cy.get('.GridContainer_gridContainer__rZELv').should('have.html', '');  
+        
+    })
     it('removes a file from the all files page', () =>{
 
         cy.contains('span', 'DELETE ME!').click()
 
         cy.get('div[class="GridContainer_gridContainer__rZELv"]').should('have.length',0)
     })
+    it('removes the board', ()=>{
+        cy.contains('a', 'WOWOWOW').click()
+        cy.contains('button', 'Delete dis Board').click()
+
+        // cy.get('.sidebar_sidebar__D8ym4 ul:first-child's).find('a').contains('WOWOWOW').should('not.exist');
+
+        cy.url().should('eq', 'http://localhost:3000/soundboard');
+
+    })
+
+
 })

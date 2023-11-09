@@ -1,3 +1,4 @@
+'use client'
 import { useState } from 'react';
 import { useRouter } from 'next/navigation'; // Import the useRouter hook from Next.js
 import Cookies from 'js-cookie';

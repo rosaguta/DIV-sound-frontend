@@ -9,7 +9,7 @@ const BoardsComponent = ({ Boards }) => {
                 {Boards.map(board => (
                     <li key={board.id}>
                         <Link href="/soundboard/[id]" as={`/soundboard/${board.id}`}>
-                            Board ID: {board.id}, Board Name: {board.name}
+                            {board.name}
                         </Link>
                     </li>
                 ))}
