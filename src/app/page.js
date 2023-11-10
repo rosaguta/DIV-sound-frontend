@@ -6,9 +6,13 @@ import Link from 'next/link.js';
 
 const Home = () => {
   return (
-    <div>
-      <Login />
-      <Link href='/new'>Register</Link>
+    <div className="flex flex-col items-center justify-center h-screen">
+      <div className="mb-8">
+        <Login />
+      </div>
+      <div className='text-blue-500'> 
+        <Link href='/new'>Register</Link>
+      </div>
     </div>
 
   );

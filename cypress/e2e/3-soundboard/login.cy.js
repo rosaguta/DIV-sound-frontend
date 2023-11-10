@@ -20,7 +20,7 @@ describe('login', () => {
         cy.get('[placeholder="Username"]').type(username);
         cy.get('[placeholder="Password"]').type(password);
         cy.get('button').click();
-        cy.contains('p', 'Login failed bitch').should('exist');
+        cy.contains('p', 'Login failed').should('exist');
     })
 })
 

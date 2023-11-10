@@ -7,10 +7,19 @@ import Cookies from 'js-cookie';
 import DeleteBoard from '../../../../component/DeleteBoard';
 
 export default function Page({ params }) {
-  const userData = Cookies.get('user')
+  let userData = ''
+  let parseddata = ''
+  let userid = ''
+  let username = ''
+  try {
+    userData = Cookies.get('user')
+    parseddata = JSON.parse(userData)
+    userid = parseddata.id
+    username = parseddata.username
+  } catch {
+    userData = 'NOT FOUND'
+  }
 
-  const parseddata = JSON.parse(userData)
-  const userid = parseddata.id
 
   const [jsonData, setJsonData] = useState(null);
   const urlid = params.id
@@ -39,7 +48,7 @@ export default function Page({ params }) {
     <div>
       <div className={Styles.container}>
         <div>
-          <Sidebar boards={jsonData} />
+          <Sidebar boards={jsonData} username={username}/>
         </div>
         <div className={Styles.mainContent}>
           <GridContainerBoard json={jsonData.find(item => item.id === Number(urlid))} />

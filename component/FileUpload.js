@@ -49,13 +49,22 @@ const FileUpload = () => {
   };
 
   return (
-    <div>
-      <input type="file" onChange={handleFileChange} multiple />
-      <button onClick={handleUpload}>Upload</button>
+    <div className="max-w-sm mx-auto mt-8 p-6 bg-white rounded-md shadow-md">
+      <input
+        type="file"
+        onChange={handleFileChange}
+        multiple
+        className="mb-4"
+      />
+      <button
+        onClick={handleUpload}
+        className="bg-blue-500 text-white px-4 py-2 rounded-md"
+        disabled={isLoading}
+      >
+        Upload
+      </button>
 
-      {isLoading && <p>Uploading files...</p>}
-      {/* Alternatively, you can replace the text with a spinning loader component */}
-      {/* {isLoading && <SpinnerComponent />} */}
+      {isLoading && <p className="mt-4 text-blue-500">Uploading files...</p>}
     </div>
   );
 };

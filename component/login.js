@@ -22,7 +22,7 @@ const Login = () => {
       } else {
         // Unauthorized, handle error (show error message, etc.)
         console.error('Login failed:', data.message);
-        setErrorMessage("Login failed bitch")
+        setErrorMessage("Login failed")
       }
     } catch (error) {
       console.error('Error occurred during login:', error);
@@ -30,7 +30,7 @@ const Login = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
+    <div className="flex flex-col items-center justify-center">
       <img src='https://git.digitalindividuals.com/uploads/-/system/appearance/header_logo/1/div_logo_2.png'
             className="max-w-xs mb-4"
       />

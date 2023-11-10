@@ -4,7 +4,7 @@ import DropDown from './dropdown';
 import DeleteButton from './deleteFile'
 import RemoveFromBoardButton from './removefile';
 
-const GridItem = ({ url, boardnames, fileid}) => {
+const GridItem = ({ url, boardnames, fileid }) => {
   const parts = url.split('/');
   const lastPart = parts[parts.length - 1];
 
@@ -13,29 +13,29 @@ const GridItem = ({ url, boardnames, fileid}) => {
   const currentUrlParts = currentUrl.split('/');
   const lastCurrentUrlPart = currentUrlParts[currentUrlParts.length - 1];
   // console.log(lastCurrentUrlPart);
-  
+
   const lastCurrentUrlPartAsNumber = parseInt(lastCurrentUrlPart, 10); // or +lastCurrentUrlPart;
   const isInt = Number.isInteger(lastCurrentUrlPartAsNumber);
   // console.log(isInt);
-  console.log("fileid : "+fileid  )
+  console.log("fileid : " + fileid)
   let buttonComponent;
-  
+
   if (isInt) {
     buttonComponent = <RemoveFromBoardButton audiofileid={fileid} boardid={lastCurrentUrlPartAsNumber} />;
   } else {
     buttonComponent = <DeleteButton audiofileid={fileid} />;
   }
-  
-  
+
+
   return (
-    <div className={styles.gridItem}>
+    <div className="p-4 border border-gray-300 rounded-md shadow-md">
       <DropDown boards={boardnames} audiofileid={fileid}></DropDown>
-      <p>{lastPart}</p>
-      <audio controls>
+      <p className="text-lg font-semibold">{lastPart}</p>
+      <audio className="mt-4" controls>
         <source src={url} type="audio/mpeg" />
         Your browser does not support the audio element.
       </audio>
-      <div>
+      <div className="mt-4">
         {buttonComponent}
       </div>
     </div>

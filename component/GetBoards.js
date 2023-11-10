@@ -7,7 +7,7 @@ const BoardsComponent = ({ Boards }) => {
         <div>
             <ul>
                 {Boards.map(board => (
-                    <li key={board.id}>
+                    <li key={board.id} className='hover:underline'>
                         <Link href="/soundboard/[id]" as={`/soundboard/${board.id}`}>
                             {board.name}
                         </Link>

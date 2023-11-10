@@ -7,13 +7,21 @@ import Styles from '../../../component/sidebar.module.css';
 import Cookies from 'js-cookie';
 
 export default function Page() {
-  const userData = Cookies.get('user')
+  let userData = ''
+  let parseddata = ''
+  let userid = ''
+  let username = ''
+  try {
+    userData = Cookies.get('user')
+    parseddata = JSON.parse(userData)
+    userid = parseddata.id
+    username = parseddata.username
+  } catch {
+    userData = 'NOT FOUND'
+  }
 
-  const parseddata = JSON.parse(userData)
-  const userid = parseddata.id
-  const username = parseddata.username
-  // if (userData) {
-    const [jsonData, setJsonData] = useState(null);
+  const [jsonData, setJsonData] = useState(null);
+  if (userData !== 'NOT FOUND') {
     useEffect(() => {
       const fetchData = async () => {
         try {
@@ -31,15 +39,19 @@ export default function Page() {
     if (!jsonData) {
       return <div>Loading...</div>; // or a loading spinner, etc.
     }
-  // }
+  }
+  else {
+    window.location.href = '/'
+  }
   return (
     <div className={Styles.container}>
       <div>
-        <Sidebar boards={jsonData} username={username}/>
+        <Sidebar boards={jsonData} username={username} />
       </div>
       <div className={Styles.mainContent}>
-        <FileUpload />
+        
         <GridContainer id={userid} />
+        <FileUpload />
       </div>
     </div>
   );

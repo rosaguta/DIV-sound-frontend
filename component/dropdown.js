@@ -31,7 +31,7 @@ const addfile = async (bid, audio_id) => {
     }
 
 }
-const DropDown = ({ boards , audiofileid}) => {
+const DropDown = ({ boards, audiofileid }) => {
 
     function classNames(...classes) {
         return classes.filter(Boolean).join(' ')
@@ -39,7 +39,7 @@ const DropDown = ({ boards , audiofileid}) => {
     if (!boards || !Array.isArray(boards) || boards.length === 0) {
         return null;
     }
-    
+
 
     return (
         <Menu as="div" className="relative inline-block text-left">
@@ -62,22 +62,22 @@ const DropDown = ({ boards , audiofileid}) => {
                     <div className="py-1">
                         {boards.map((board) => (
                             <Menu.Item key={board.id}>
-                                <a
-                                    onClick={() => addfile(board.id, audiofileid)}
-                                    // href={board.name}
-                                    className={classNames(
-                                        'bg-gray-100 text-gray-900',
-                                        'block px-4 py-2 text-sm'
-                                    )}
-                                >
-                                    {board.name}
-                                </a>
+                                {/* Add 'group' class to the parent div */}
+                                <div className="group">
+                                    <a
+                                        onClick={() => addfile(board.id, audiofileid)}
+                                        className={classNames(
+                                            'block px-4 py-2 text-sm',
+                                            'transition duration-300 ease-in-out', // Add transition
+                                            'group-hover:bg-gray-100', // Background color on hover
+                                            'group-hover:text-gray-800' // Text color on hover
+                                        )}
+                                    >
+                                        {board.name}
+                                    </a>
+                                </div>
                             </Menu.Item>
                         ))}
-
-
-
-
                     </div>
                 </Menu.Items>
             </Transition>
