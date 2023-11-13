@@ -3,6 +3,7 @@ import styles from './GridItem.module.css';
 import DropDown from './dropdown';
 import DeleteButton from './deleteFile'
 import RemoveFromBoardButton from './removefile';
+import AudioPlayer from './audioplayer';
 
 const GridItem = ({ url, boardnames, fileid }) => {
   const parts = url.split('/');
@@ -31,10 +32,11 @@ const GridItem = ({ url, boardnames, fileid }) => {
     <div className="p-4 border border-gray-300 rounded-md shadow-md">
       <DropDown boards={boardnames} audiofileid={fileid}></DropDown>
       <p className="text-lg font-semibold">{lastPart}</p>
-      <audio className="mt-4" controls>
+      <AudioPlayer src={url}></AudioPlayer>
+      {/* <audio className="mt-4" controls>
         <source src={url} type="audio/mpeg" />
         Your browser does not support the audio element.
-      </audio>
+      </audio> */}
       <div className="mt-4">
         {buttonComponent}
       </div>
