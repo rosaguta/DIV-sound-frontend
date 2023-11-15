@@ -12,13 +12,18 @@
   "dependencies": {
     "@headlessui/react": "^1.7.17",
     "axios": "^1.5.1",
+    "bufferutil": "^4.0.8",
     "heroicons": "^2.0.18",
     "js-cookie": "^3.0.5",
+    "net": "^1.0.2",
     "next": "13.5.4",
     "react": "^18",
     "react-dom": "^18",
     "socket.io": "^4.7.2",
-    "tw-elements": "^1.0.0"
+    "socket.io-client": "^4.7.2",
+    "tls": "^0.0.1",
+    "tw-elements": "^1.0.0",
+    "utf-8-validate": "^5.0.10"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.16",

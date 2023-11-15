@@ -5,6 +5,8 @@ import GridContainerBoard from '../../../../component/GridContainerBoard.client'
 import Styles from '../../../../component/sidebar.module.css'
 import Cookies from 'js-cookie';
 import DeleteBoard from '../../../../component/DeleteBoard';
+import ShareButton from '../../../../component/sharebutton';
+import io from 'socket.io-client'
 
 export default function Page({ params }) {
   let userData = ''
@@ -55,6 +57,7 @@ export default function Page({ params }) {
         </div>
         <div>
           <DeleteBoard boardid={urlid}/>
+          <ShareButton roomIdCallback={setRoomId}/>
         </div>
       </div>
     </div>
