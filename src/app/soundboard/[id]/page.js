@@ -53,11 +53,9 @@ export default function Page({ params }) {
           <Sidebar boards={jsonData} username={username}/>
         </div>
         <div className={Styles.mainContent}>
-          <GridContainerBoard json={jsonData.find(item => item.id === Number(urlid))} />
+          <GridContainerBoard json={jsonData.find(item => item.id === Number(urlid))} url={urlid}/>
         </div>
         <div>
-          <DeleteBoard boardid={urlid}/>
-          <ShareButton roomIdCallback={setRoomId}/>
         </div>
       </div>
     </div>

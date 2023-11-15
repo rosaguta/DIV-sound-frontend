@@ -12,7 +12,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <header>
-        <script src='src="/socket.io/socket.io.js' />
+        <script src='src="/socket.io/socket.io.js"' />
       </header>
       <body className={inter.className}>{children}</body>
     </html>
