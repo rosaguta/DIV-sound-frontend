@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 
-const AudioPlayer = ({ src }) => {
+const AudioPlayer = ({ src , socket}) => {
   const audioRef = useRef(null);
   const [isPlaying, setPlaying] = useState(false);
   const [volume, setVolume] = useState(1);
@@ -16,12 +16,21 @@ const AudioPlayer = ({ src }) => {
     //   audioRef.current.removeEventListener('ended', handleEnded);
     // };
   }, []);
+  
 
   const togglePlay = () => {
     if (isPlaying) {
       audioRef.current.pause();
     } else {
-      audioRef.current.play();
+      if(!window.location.href.includes('shared')){
+        audioRef.current.play();
+      }else{
+        const currenturl = window.location.href
+        const parts = currenturl.split('/');
+        const lastPart = parts[parts.length - 1];
+        socket.emit('wiebel',src,lastPart)
+      }
+      
     }
     setPlaying(!isPlaying);
   };

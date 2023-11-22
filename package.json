@@ -13,6 +13,7 @@
     "@headlessui/react": "^1.7.17",
     "axios": "^1.5.1",
     "bufferutil": "^4.0.8",
+    "fs": "^0.0.1-security",
     "heroicons": "^2.0.18",
     "js-cookie": "^3.0.5",
     "net": "^1.0.2",
