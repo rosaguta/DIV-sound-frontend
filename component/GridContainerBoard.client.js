@@ -6,6 +6,7 @@ import DeleteBoard from './DeleteBoard';
 import ShareButton from './sharebutton';
 const GridContainerBoard = ({ json, url }) => {
   // Check if json.audioList is an array before using map
+  console.log('json:', json)
   const audioList = json.audioList?.length > 0 ? json.audioList : [];
 
   // Check if the ID of the first item in audioList is null
@@ -32,6 +33,7 @@ const GridContainerBoard = ({ json, url }) => {
 GridContainerBoard.defaultProps = {
   json: {
     name: '',  // Default value for name property
+    sessionid: '',
     audioList: []  // Default value for audioList property
   }
 };

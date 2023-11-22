@@ -1,9 +1,21 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 const AudioPlayer = ({ src }) => {
   const audioRef = useRef(null);
   const [isPlaying, setPlaying] = useState(false);
   const [volume, setVolume] = useState(1);
+
+  useEffect(() => {
+    const handleEnded = () => {
+      setPlaying(false);
+    };
+
+    audioRef.current.addEventListener('ended', handleEnded);
+
+    // return () => {
+    //   audioRef.current.removeEventListener('ended', handleEnded);
+    // };
+  }, []);
 
   const togglePlay = () => {
     if (isPlaying) {
@@ -23,7 +35,7 @@ const AudioPlayer = ({ src }) => {
   return (
     <div>
       <audio ref={audioRef} src={src} volume={volume} />
-      <button onClick={togglePlay}>{isPlaying ? 'Pause' : 'Play'}</button>
+      <button onClick={togglePlay}>{isPlaying ? 'Playing' : 'Play'}</button>
       <input
         type="range"
         min="0"

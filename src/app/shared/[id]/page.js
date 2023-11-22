@@ -1,30 +1,36 @@
 'use client'
 import React, { useEffect, useState } from 'react';
-import GridContainerBoard from '../../../../component/GridContainerBoard.client';
+import GridContainerBoard from '../../../../component/GridContainerBoard.client.js';
 // import { Socket } from 'socket.io';
 
 export default function Page({ params }) {
-  const [json, setJson] = useState(null);
-  const getBoard = async () => {
-    try {
-      console.log("sessionid", params.id);
-      const response = await fetch(`http://localhost:8080/Boards/Session/${params.id}`);
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      const data = await response.text();
-      setJson(data);
-      console.log("json:", data);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
+  const [jsondata, setJson] = useState(null);
+  const urlid = params.id
   useEffect(() => {
+    const getBoard = async () => {
+      try {
+        console.log("sessionid", urlid);
+        const response = await fetch(`http://localhost:8080/Boards/Session/${urlid}`);
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const data = await response.json();
+        setJson(data);
+        console.log(data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
     getBoard();
   }, []);
+
+  if (!jsondata) {
+    return <div>Loading...</div>; // or a loading spinner, etc.
+  }
+
   return (
     <div>
-      <GridContainerBoard json={json}></GridContainerBoard>
+      <GridContainerBoard json={jsondata}></GridContainerBoard>
     </div>
   );
 }

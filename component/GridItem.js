@@ -17,15 +17,18 @@ const GridItem = ({ url, boardnames, fileid }) => {
 
   const lastCurrentUrlPartAsNumber = parseInt(lastCurrentUrlPart, 10); // or +lastCurrentUrlPart;
   const isInt = Number.isInteger(lastCurrentUrlPartAsNumber);
-  // console.log(isInt);
-  console.log("fileid : " + fileid)
-  let buttonComponent;
 
+  
+  // console.log(isInt);
+  // console.log("fileid : " + fileid)
+  let buttonComponent;
+  if (!currentUrl.includes('shared')){
   if (isInt) {
     buttonComponent = <RemoveFromBoardButton audiofileid={fileid} boardid={lastCurrentUrlPartAsNumber} />;
   } else {
     buttonComponent = <DeleteButton audiofileid={fileid} />;
   }
+}
 
 
   return (
