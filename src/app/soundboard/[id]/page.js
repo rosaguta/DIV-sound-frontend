@@ -7,6 +7,8 @@ import Cookies from 'js-cookie';
 import DeleteBoard from '../../../../component/DeleteBoard';
 import ShareButton from '../../../../component/sharebutton';
 import io from 'socket.io-client'
+import { Share } from 'next/font/google';
+import DeleteButton from '../../../../component/deleteFile';
 
 export default function Page({ params }) {
   let userData = ''
@@ -56,6 +58,8 @@ export default function Page({ params }) {
           <GridContainerBoard json={jsonData.find(item => item.id === Number(urlid))} url={urlid}/>
         </div>
         <div>
+          <ShareButton boardid={urlid}/>
+          <DeleteBoard boardid={urlid}/>
         </div>
       </div>
     </div>

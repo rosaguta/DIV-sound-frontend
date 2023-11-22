@@ -14,8 +14,8 @@ const GridContainerBoard = ({ json, url }) => {
   return (<div>
     <div className='columns-3'>
       <h2 className='text-xl font-extrabold '>{json.name}</h2>
-      <ShareButton/>
-      <DeleteBoard boardid={url}/>
+      {/* <ShareButton/>
+      <DeleteBoard boardid={url}/> */}
       
     </div>
     <div className={styles.gridContainer}>
