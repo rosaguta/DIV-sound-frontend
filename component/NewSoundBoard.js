@@ -15,7 +15,7 @@ const CreateBoard = () => {
     const userid = parseddata.id;
   
     try {
-      const response = await fetch(`http://localhost:8080/Boards?name=${formData.boardname}&userid=${userid}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_AUDIO_API}/Boards?name=${formData.boardname}&userid=${userid}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -9,7 +9,7 @@ const BoardFilesComponent = ({userid}) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://localhost:8080/Boards?userid=${userid}`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_AUDIO_API}/Boards?userid=${userid}`);
         const data = await response.json();
 
         const filtereddata = data.filter(board => board.id === 6)

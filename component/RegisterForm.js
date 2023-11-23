@@ -15,7 +15,7 @@ const NewUserForm = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch(`http://localhost:8080/Users/Register`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_AUDIO_API}/Users/Register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

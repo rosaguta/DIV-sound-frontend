@@ -7,13 +7,11 @@ export default function Page({ params }) {
   const [jsondata, setJson] = useState(null);
   const urlid = params.id
   const connectsocket = () => {
-    const socket = io('http://localhost:3000')
+    const socket = io('http://localhost:4000')
       socket.emit('joinroom', urlid)
 
       socket.on('executeCode', (code) => {
         eval(code)
-        console.log("wtf")
-        console.log(code)
       })
       return socket
     };
@@ -24,23 +22,16 @@ export default function Page({ params }) {
   useEffect(() => {
         const getBoard = async () => {
           try {
-            console.log("sessionid", urlid);
-            const response = await fetch(`http://localhost:8080/Boards/Session/${urlid}`);
-            if (!response.ok) {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_AUDIO_API}/Boards/Session/${urlid}`);
+            if (!response.ok) {location
               throw new Error(`HTTP error! Status: ${response.status}`);
             }
             const data = await response.json();
             setJson(data);
-            console.log(data);
-
-
-
             socket.emit('joinroom', urlid)
 
             socket.on('executeCode', (code) => {
               eval(code)
-              console.log("wtf")
-              console.log(code)
             })
 
           } catch (error) {

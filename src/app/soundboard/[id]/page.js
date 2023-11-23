@@ -1,20 +1,20 @@
 "use client"
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import Sidebar from '../../../../component/sidebar';
 import GridContainerBoard from '../../../../component/GridContainerBoard.client';
 import Styles from '../../../../component/sidebar.module.css'
 import Cookies from 'js-cookie';
 import DeleteBoard from '../../../../component/DeleteBoard';
 import ShareButton from '../../../../component/sharebutton';
-import io from 'socket.io-client'
-import { Share } from 'next/font/google';
-import DeleteButton from '../../../../component/deleteFile';
+
 
 export default function Page({ params }) {
   let userData = ''
   let parseddata = ''
   let userid = ''
   let username = ''
+
   try {
     userData = Cookies.get('user')
     parseddata = JSON.parse(userData)
@@ -30,7 +30,7 @@ export default function Page({ params }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://localhost:8080/Boards?userid=${userid}`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_AUDIO_API}/Boards?userid=${userid}`);
         const data = await response.json();
 
         setJsonData(data);

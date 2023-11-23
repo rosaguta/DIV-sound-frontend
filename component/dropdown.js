@@ -9,7 +9,7 @@ const addfile = async (bid, audio_id) => {
     const userid = parseddata.id
 
     try {
-        const response = await fetch(`http://localhost:8080/Boards/${bid}/${audio_id}?userid=${userid}`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_AUDIO_API}/Boards/${bid}/${audio_id}?userid=${userid}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

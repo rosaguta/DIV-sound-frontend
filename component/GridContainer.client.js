@@ -9,18 +9,16 @@ const GridContainer = ({ id }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-
-        const response = await fetch(`http://localhost:8080/AudioFiles/${id}`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_AUDIO_API}/AudioFiles/${id}`); 
         const data = await response.json();
         setAudioUrls(data); // Update state with fetched audio URLs
 
-        const boardResponse = await fetch(`http://localhost:8080/Boards?userid=${id}`);
+        const boardResponse = await fetch(`${process.env.NEXT_PUBLIC_AUDIO_API}/Boards?userid=${id}`);
         const boardData = await boardResponse.json();
         setBoardNames(boardData); // Set board names from the response to state
       } catch (error) {
         console.error('Error fetching audio data:', error);
       }
-      console.log(audioUrls.toString())
     };
 
     fetchData(); // Fetch audio data when the component mounts
@@ -28,7 +26,6 @@ const GridContainer = ({ id }) => {
 
   return (
     <div className="grid grid-cols-5 grid-rows-2 gap-4 p-4">
-      <script>console.log(audioUrls)</script>
       {audioUrls.map((audio) => (
         <GridItem key={audio.id} url={audio.url} boardnames={boardNames} fileid={audio.id}/>
       ))} 

@@ -9,7 +9,7 @@ const DeleteButton = ({ audiofileid}) => {
         const userid = parseddata.id
 
         try {
-            const response = await fetch(`http://localhost:8080/AudioFiles?audiofileid=${audiofileid}&userid=${userid}`, {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_AUDIO_API}/AudioFiles?audiofileid=${audiofileid}&userid=${userid}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',

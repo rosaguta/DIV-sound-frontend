@@ -14,7 +14,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <header>
       <link rel="icon" type="image/x-icon" href="https://git.digitalindividuals.com/uploads/-/system/appearance/header_logo/1/div_logo_2.png" />
-        <script src='src="/socket.io/socket.io.js"' />
+        <script src='src="/socket.io/socket.io.js"' defer/>
       </header>
       <body className={inter.className}>{children}</body>
     </html>

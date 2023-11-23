@@ -11,12 +11,12 @@ const Login = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const handleLogin = async () => {
     try {
-      const response = await fetch(`http://localhost:8080/Users/Login?username=${username}&Password=${password}`);
+      const response = await fetch(`${process.env.NEXT_PUBLIC_AUDIO_API}/Users/Login?username=${username}&Password=${password}`);
       const data = await response.json();
 
       if (data.statusCode === 200) {
         // Successful login, redirect to /soundboard
-        Cookies.set('user', JSON.stringify(data.user), { expires: 1 });
+        Cookies.set('user', JSON.stringify(data.user), { expires: 1 , SameSite: "None", secure: true});
         router.push('/soundboard'); // Use router.push inside the component body
         // console.log('Login successful:', data.user);
       } else {

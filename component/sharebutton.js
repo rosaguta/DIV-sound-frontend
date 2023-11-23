@@ -4,7 +4,7 @@ const ShareButton = ({boardid}) => {
 let sessionid = null
     const share = async () => {
         try {
-            const response = await fetch(`http://localhost:8080/Boards/${boardid}/CreateRoomSessionId`, {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_AUDIO_API}/Boards/${boardid}/CreateRoomSessionId`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

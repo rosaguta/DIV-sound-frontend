@@ -27,7 +27,7 @@ const FileUpload = () => {
       });
 
       try {
-        const response = await fetch(`http://localhost:8080/AudioFiles?Uploaderid=${userid}`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_AUDIO_API}/AudioFiles?Uploaderid=${userid}`, {
           method: 'POST',
           body: formData,
         });

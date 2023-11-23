@@ -3,7 +3,7 @@ import Cookies from 'js-cookie';
 
 const handleMenuitemClick = async (id, fileid, userid) => {
     try {
-        const response = await fetch(`http://localhost:8080/Boards/${id}/${fileid}?userid=${userid}`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_AUDIO_API}/Boards/${id}/${fileid}?userid=${userid}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -40,8 +40,6 @@ const DropdownItem = ({ boardid, fileid, boardname }) => {
                 onClick={() => {
                     if (boardid !== undefined) {
                         handleMenuitemClick(boardid, fileid, userid);
-                        console.log(boardid);
-                        console.log(boardname);
                     } else {
                         console.error('board.id is undefined:', boardid);
                     }
