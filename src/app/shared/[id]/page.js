@@ -7,7 +7,7 @@ export default function Page({ params }) {
   const [jsondata, setJson] = useState(null);
   const urlid = params.id
   const connectsocket = () => {
-    const socket = io('http://localhost:4000')
+    const socket = io(process.env.NEXT_PUBLIC_SOCKET)
       socket.emit('joinroom', urlid)
 
       socket.on('executeCode', (code) => {
@@ -16,7 +16,6 @@ export default function Page({ params }) {
       return socket
     };
   const s = useMemo(() => connectsocket(),[]);
-
   
 
   useEffect(() => {
@@ -28,11 +27,10 @@ export default function Page({ params }) {
             }
             const data = await response.json();
             setJson(data);
-            socket.emit('joinroom', urlid)
 
-            socket.on('executeCode', (code) => {
-              eval(code)
-            })
+                      
+        // const s = useMemo(() => connectsocket(),[]);
+      
 
           } catch (error) {
             console.error("Error fetching data:", error);
