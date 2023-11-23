@@ -22,7 +22,7 @@ export default function Page({ params }) {
   useEffect(() => {
         const getBoard = async () => {
           try {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_AUDIO_API}/Boards/Session/${urlid}`);
+            const response = await fetch(`${process.env.NEXT_PUBLIC_SOCKET}/Boards/Session/${urlid}`);
             if (!response.ok) {location
               throw new Error(`HTTP error! Status: ${response.status}`);
             }
