@@ -2,33 +2,15 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styles from './GridContainer.module.css';
 import GridItem from './GridItem';
-import DeleteBoard from './DeleteBoard';
-import ShareButton from './sharebutton';
-import io from 'socket.io-client';
-const GridContainerBoard = ({ json, url }) => {
+const GridContainerBoard = ({ json, url, socket }) => {
   // Check if json.audioList is an array before using map
   console.log('json:', json)
   const audioList = json.audioList?.length > 0 ? json.audioList : [];
 
   // Check if the ID of the first item in audioList is null
   const isFirstItemNull = audioList.length > 0 && audioList[0].id === null;
-
-  const currenturl = window.location.href
-  let socket
+ 
   
-  if (currenturl.includes('shared')) {
-    useEffect(() => {
-      console.log("wtf")
-      const parts = currenturl.split('/');
-      const lastPart = parts[parts.length - 1];
-      socket = io('http://localhost:3000')
-      socket.emit('joinroom', lastPart)
-
-      socket.on('executeCode', (code) => {
-        eval(code)
-      })
-    }, [])
-  }
   return (<div>
     <div className='columns-3'>
       <h2 className='text-xl font-extrabold '>{json.name}</h2>
