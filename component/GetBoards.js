@@ -4,7 +4,7 @@ import Link from 'next/link';
 const BoardsComponent = ({ Boards }) => {
 
     return (
-        <div>
+        <div className='h-3/5 overflow-y-auto'>
             <ul>
                 {Boards.map(board => (
                     <li key={board.id} className='hover:underline'>

@@ -11,14 +11,15 @@ const GridContainerBoard = ({ json, url, socket }) => {
   const isFirstItemNull = audioList.length > 0 && audioList[0].id === null;
  
   
-  return (<div>
+  return (
+  <div className=' ml-52'>
     <div className='columns-3'>
       <h2 className='text-xl font-extrabold '>{json.name}</h2>
       {/* <ShareButton/>
       <DeleteBoard boardid={url}/> */}
 
     </div>
-    <div className={styles.gridContainer}>
+    <div className={styles.gridContainer} >
 
       {/* Check if the ID of the first item is not null before rendering GridItem */}
       {!isFirstItemNull && audioList.map((audio) => (

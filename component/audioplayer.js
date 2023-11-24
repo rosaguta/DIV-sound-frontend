@@ -19,20 +19,23 @@ const AudioPlayer = ({ src , socket}) => {
   
 
   const togglePlay = () => {
-    if (isPlaying) {
-      audioRef.current.pause();
-    } else {
-      if(!window.location.href.includes('shared')){
-        audioRef.current.play();
-      }else{
+    if(!window.location.href.includes('shared')){
+      if (isPlaying) {
+        audioRef.current.pause();
+      } else {
+        {
+          audioRef.current.play();
+        }
+        
+      }
+      setPlaying(!isPlaying);
+    }else{
         const currenturl = window.location.href
         const parts = currenturl.split('/');
         const lastPart = parts[parts.length - 1];
         socket.emit('wiebel',src,lastPart)
       }
-      
-    }
-    setPlaying(!isPlaying);
+    
   };
 
   const handleVolumeChange = (e) => {

@@ -25,7 +25,7 @@ const GridContainer = ({ id }) => {
   }, [id]);
 
   return (
-    <div className="grid grid-cols-5 grid-rows-2 gap-4 p-4">
+    <div className="grid grid-cols-5 grid-rows-2 gap-4 p-4 ml-52">
       {audioUrls.map((audio) => (
         <GridItem key={audio.id} url={audio.url} boardnames={boardNames} fileid={audio.id}/>
       ))} 
