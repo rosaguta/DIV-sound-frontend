@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  next-app:
+    container_name: next-app
+    build:
+      context: ./
+      dockerfile: dockerfile
+      args:
+        # Define which variables need to be build into app
+        NEXT_PUBLIC_AUDIO_API: "http://138.201.52.251:9999"
+        NEXT_PUBLIC_SOCKET: "http://138.201.52.251:9997"
+    ports:
+      - 3333:3000

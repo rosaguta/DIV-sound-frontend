@@ -12,7 +12,8 @@ RUN npm install
 
 # Copy the entire project to the working directory
 COPY . .
-
+ARG NEXT_PUBLIC_AUDIO_API
+ARG NEXT_PUBLIC_SOCKET
 # Build the Next.js project
 RUN npm run build
 

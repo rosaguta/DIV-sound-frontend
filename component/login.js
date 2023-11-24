@@ -1,7 +1,9 @@
 'use client'
 import { useState } from 'react';
 import { useRouter } from 'next/navigation'; // Import the useRouter hook from Next.js
-import Cookies from 'js-cookie';
+// import Cookies from 'js-cookie';
+// import {cookies} from 'next/headers'
+import setcookie from './cookie';
 
 const Login = () => {
   const router = useRouter(); // Use the useRouter hook inside the functional component
@@ -16,7 +18,9 @@ const Login = () => {
 
       if (data.statusCode === 200) {
         // Successful login, redirect to /soundboard
-        Cookies.set('user', JSON.stringify(data.user), { expires: 1 , SameSite: "None", secure: true});
+        // Cookies.set('user', JSON.stringify(data.user), { expires: 1 , SameSite: "None", secure: true});
+        // cookies().set('user',JSON.stringify(data.user))
+        setcookie(data.user)
         router.push('/soundboard'); // Use router.push inside the component body
         // console.log('Login successful:', data.user);
       } else {
