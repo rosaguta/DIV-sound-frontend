@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 const DeleteBoard = ({ boardid }) => {
     const deleteboard = async () => {
         try {
-            const response = await fetch(`http://localhost:8080/Boards/${boardid}`, {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_AUDIO_API}/Boards/${boardid}`, {
                 method: 'DELETE', // Specify the HTTP method as DELETE
                 headers: {
                     'Content-Type': 'application/json',
