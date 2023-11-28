@@ -35,7 +35,7 @@ describe('performing different actions', () => {
         cy.get('input[type=file]').selectFile('./cypress/e2e/3-soundboard/congrats.mp3')
         cy.contains('button', 'Upload').click()
 
-        cy.get('.GridItem_gridItem__e_J2n').then(($divElement) => {
+        cy.contains('p','congrats.mp3').then(($divElement) => {
             // You can perform assertions or actions on the selected <div> element
             // For example, you can check if it contains a specific text or perform other assertions
             expect($divElement).to.contain('congrats.mp3');   

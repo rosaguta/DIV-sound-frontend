@@ -53,7 +53,7 @@ export default function Page({ params }) {
           <div className='flex-grow'>
             <GridContainerBoard json={jsonData.find(item => item.id === Number(urlid))} url={urlid} />
           </div>
-          <div>
+          <div className='absolute top-4 right-4'>
             <ShareButton boardid={urlid} />
             <DeleteBoard boardid={urlid} />
           </div>

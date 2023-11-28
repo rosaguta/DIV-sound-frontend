@@ -5,7 +5,7 @@ import Logout from './Logout';
 
 const Sidebar = ({ boards, username }) => {
   return (
-    <div className="w-48 h-screen bg-gray-800 text-white p-5 sticky-left-0 fixed">
+    <div className="w-48 h-screen bg-gray-800 text-white p-5 sticky-left-0 fixed mr-52">
       <img src="https://git.digitalindividuals.com/uploads/-/system/appearance/header_logo/1/div_logo_2.png" alt="Logo" className="mb-5" />
       <Link href="/soundboard">
         <h2 className="text-xl mb-5 cursor-pointer hover:underline">All Files</h2>
