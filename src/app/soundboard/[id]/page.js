@@ -1,9 +1,7 @@
 "use client"
 import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
 import Sidebar from '../../../../component/sidebar';
 import GridContainerBoard from '../../../../component/GridContainerBoard.client';
-import Styles from '../../../../component/sidebar.module.css'
 import Cookies from 'js-cookie';
 import DeleteBoard from '../../../../component/DeleteBoard';
 import ShareButton from '../../../../component/sharebutton';
@@ -49,18 +47,16 @@ export default function Page({ params }) {
   // Now you can use jsonData in your components, for example:
 
   return (
-    <div>
-      <div className={Styles.container}>
-        <div>
-          <Sidebar boards={jsonData} username={username}/>
-        </div>
-        <div className={Styles.mainContent}>
-          <GridContainerBoard json={jsonData.find(item => item.id === Number(urlid))} url={urlid}/>
-        </div>
-        <div>
-          <ShareButton boardid={urlid}/>
-          <DeleteBoard boardid={urlid}/>
-        </div>
+    <div className="flex">
+      <div className="flex-none">
+          <Sidebar boards={jsonData} username={username} className="mr-100" />
+          <div className='flex-grow'>
+            <GridContainerBoard json={jsonData.find(item => item.id === Number(urlid))} url={urlid} />
+          </div>
+          <div>
+            <ShareButton boardid={urlid} />
+            <DeleteBoard boardid={urlid} />
+          </div>
       </div>
     </div>
   );

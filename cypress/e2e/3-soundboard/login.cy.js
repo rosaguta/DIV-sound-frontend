@@ -24,7 +24,7 @@ describe('login', () => {
     })
 })
 
-describe('landing page', () => {
+describe('performing different actions', () => {
     beforeEach(() => {
         cy.visit("http://localhost:3000")
         cy.get('[placeholder="Username"]').type('Test');
@@ -32,7 +32,7 @@ describe('landing page', () => {
         cy.get('button').click();
     })
     it('upload a file', () => {
-        cy.get('input[type=file]').selectFile('cypress/e2e/3-soundboard/congrats.mp3')
+        cy.get('input[type=file]').selectFile('./cypress/e2e/3-soundboard/congrats.mp3')
         cy.contains('button', 'Upload').click()
 
         cy.get('.GridItem_gridItem__e_J2n').then(($divElement) => {

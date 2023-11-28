@@ -39,11 +39,11 @@ export default function Page() {
 
 
   return (
-    <div className={Styles.container}>
-      <div>
+    <div className='flex'>
+      <div className='no-flex mr-48'>
         <Sidebar boards={jsonData} username={username} />
       </div>
-      <div className={Styles.mainContent}>
+      <div >
         <GridContainer id={userid} />
         <FileUpload />
       </div>
