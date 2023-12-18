@@ -21,39 +21,46 @@ function playOrStopAudio(url) {
   }
 }
 
-
 export default function Page({ params }) {
   const [jsondata, setJson] = useState(null);
   const [userlist, setUserlist] = useState([]); // Use useState for userlist
   const urlid = params.id;
-
+  const [userName, setUserName] = useState("")
+  const [submitted, setSubmit] = useState(false)
   let s = io(process.env.NEXT_PUBLIC_SOCKET)
-  s.on("userjoined", (ulist) => {
-    console.log("something")
-    setUserlist(ulist.split(","))
-    console.log("ulist: " + ulist)
-  })
+
 
   s.on('executeCode', (url) => {
-
     playOrStopAudio(url)
   });
 
+  const handleNameChange = (event) => {
+    event.preventDefault()
+    setUserName(event.target.value);
+  };
+  const handleNameSubmit = async (event) => {
+    event.preventDefault();
+    setSubmit(true)
+    connectsocket(userName)
+    s.emit('getuserlist', urlid)
+    s.on("userjoined", (ulist) => {
+      console.log("something")
+      setUserlist(ulist)
+      console.log("ulist: " + ulist)
+    })
+  };
 
-  const connectsocket = () => {
-    s.emit('joinroom', urlid, "user");
+  const handleBeforeUnload = () => {
+    console.log("disconnecting")
+    s.emit('disconnect', userName, urlid);
+  };
+  
+  function connectsocket(name) {
+    s.emit('joinroom', urlid, name);
     return s;
   };
 
-  useMemo(() => connectsocket(), []);
-
   useEffect(() => {
-    s.on("userjoined", (ulist) => {
-      console.log("something");
-      const updatedUserlist = ulist.split(',');
-      console.log("userlist: " + updatedUserlist);
-      setUserlist(updatedUserlist); // Update the state here
-    });
 
     const getBoard = async () => {
       try {
@@ -69,23 +76,43 @@ export default function Page({ params }) {
     };
 
     getBoard();
+
+    // Add event listener for beforeunload
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    // Cleanup the event listener when the component is unmounted
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);}
   }, [urlid]);
 
   if (jsondata == null) {
     return <div>Loading...</div>;
   }
 
+
   return (
     <div>
-      <div>
-        <h3>Connected Users:</h3>
-        <ul>
-          {userlist.map((user, index) => (
-            <li key={index}>{user}</li>
-          ))}
-        </ul>
-      </div>
-      <GridContainerBoard json={jsondata} socket={s}></GridContainerBoard>
+      {!submitted ? (
+        <form onSubmit={handleNameSubmit}>
+          <label>
+            Enter your name:
+            <input type="text" value={userName} onChange={handleNameChange} />
+          </label>
+          <button type="submit">Submit</button>
+        </form>
+      ) : (
+        <div>
+          <div>
+            <h3>Connected Users:</h3>
+            <ul>
+              {userlist.map((user, index) => (
+                <li key={index}>{user}</li>
+              ))}
+            </ul>
+          </div>
+          <GridContainerBoard json={jsondata} socket={s}></GridContainerBoard>
+        </div>
+      )}
     </div>
   );
 };
