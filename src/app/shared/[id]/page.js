@@ -2,6 +2,7 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import GridContainerBoard from '../../../../component/GridContainerBoard.client.js';
 import { io } from 'socket.io-client';
+import { useRouter } from 'next/navigation.js';
 // Create an audio element
 const audioElement = new Audio();
 
@@ -28,6 +29,8 @@ export default function Page({ params }) {
   const [userName, setUserName] = useState("")
   const [submitted, setSubmit] = useState(false)
   const s = io(process.env.NEXT_PUBLIC_SOCKET)
+  const router = useRouter()
+  const [AudioListIsEmpty, setIsEmpty] = useState(true)
 
 
   s.on('executeCode', (url) => {
@@ -68,7 +71,6 @@ export default function Page({ params }) {
   };
 
   useEffect(() => {
-
     const getBoard = async () => {
       try {
         const response = await fetch(`${process.env.NEXT_PUBLIC_AUDIO_API}/Boards/Session/${urlid}`);
@@ -76,6 +78,15 @@ export default function Page({ params }) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
         const data = await response.json();
+        if(data.id == 0){
+          router.back()
+        }
+        const audiolistlenght = data.audioList.length 
+        console.log(audiolistlenght)
+        if(data.audioList.length > 1){
+          setIsEmpty(false)
+          console.log(AudioListIsEmpty)
+        } 
         setJson(data);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -83,38 +94,45 @@ export default function Page({ params }) {
     };
 
     getBoard();
-
-
-    // Add event listener for beforeunload
-    // window.addEventListener('beforeunload', handleBeforeUnload);
-    // window.addEventListener('unload', handleBeforeUnload)
     window.addEventListener('beforeunload', beforeUnloadHandler)
-
-
-    // Cleanup the event listener when the component is unmounted
     return () => {
       window.removeEventListener('beforeunload', beforeUnloadHandler)
     }
-  }, [urlid, userName]);
+  }, [urlid, userName, AudioListIsEmpty]);
 
   if (jsondata == null) {
     return <div>Loading...</div>;
   }
 
-
+  
   return (
     <div>
       {!submitted ? (
-        <form onSubmit={handleNameSubmit}>
-          <label>
-            Enter your name:
-            <input type="text" value={userName} onChange={handleNameChange} />
-          </label>
-          <button type="submit">Submit</button>
-        </form>
+        <div className="flex flex-col items-center justify-center">
+          <img src='https://git.digitalindividuals.com/uploads/-/system/appearance/header_logo/1/div_logo_2.png'
+            className="max-w-xs mb-4"
+          />
+          <form onSubmit={handleNameSubmit}>
+            <label>
+              Enter your name:
+              <input
+                className="mb-4 p-2 border border-gray-300 rounded"
+                type="text"
+                placeholder="Username"
+                value={userName}
+                onChange={handleNameChange}
+              />
+            </label>
+            <button className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded" type="submit">Submit</button>
+          </form>
+        </div>
       ) : (
         <div class="flex">
-          <GridContainerBoard json={jsondata} socket={s}></GridContainerBoard>
+          {AudioListIsEmpty ? (
+            <p>The soundboard is empty</p>
+          ) : (
+            <GridContainerBoard json={jsondata} socket={s}></GridContainerBoard>
+          )}
           <div class="mr-4">
             <h2>Connected Users:</h2>
             <ul>
@@ -124,7 +142,6 @@ export default function Page({ params }) {
             </ul>
           </div>
         </div>
-
       )}
     </div>
   );
