@@ -27,7 +27,7 @@ export default function Page({ params }) {
   const urlid = params.id;
   const [userName, setUserName] = useState("")
   const [submitted, setSubmit] = useState(false)
-  let s = io(process.env.NEXT_PUBLIC_SOCKET)
+  const s = io(process.env.NEXT_PUBLIC_SOCKET)
 
 
   s.on('executeCode', (url) => {
@@ -43,18 +43,25 @@ export default function Page({ params }) {
     setSubmit(true)
     connectsocket(userName)
     s.emit('getuserlist', urlid)
-    s.on("userjoined", (ulist) => {
+    s.on("userlist", (ulist) => {
       console.log("something")
       setUserlist(ulist)
       console.log("ulist: " + ulist)
     })
   };
+  function disconnectsession(room, username) {
+    s.emit('userdisconnect', room, username)
+  }
 
-  const handleBeforeUnload = () => {
-    console.log("disconnecting")
-    s.emit('disconnect', userName, urlid);
+  const beforeUnloadHandler = (event) => {
+    event.preventDefault()
+    const confirmationMessage = 'Are you sure you want to leave?';
+    event.returnValue = confirmationMessage; // Standard for most browsers
+
+    disconnectsession(urlid, userName)
+    return confirmationMessage; // For some older browsers
   };
-  
+
   function connectsocket(name) {
     s.emit('joinroom', urlid, name);
     return s;
@@ -77,13 +84,18 @@ export default function Page({ params }) {
 
     getBoard();
 
+
     // Add event listener for beforeunload
-    window.addEventListener('beforeunload', handleBeforeUnload);
+    // window.addEventListener('beforeunload', handleBeforeUnload);
+    // window.addEventListener('unload', handleBeforeUnload)
+    window.addEventListener('beforeunload', beforeUnloadHandler)
+
 
     // Cleanup the event listener when the component is unmounted
     return () => {
-      window.removeEventListener('beforeunload', handleBeforeUnload);}
-  }, [urlid]);
+      window.removeEventListener('beforeunload', beforeUnloadHandler)
+    }
+  }, [urlid, userName]);
 
   if (jsondata == null) {
     return <div>Loading...</div>;
@@ -101,17 +113,18 @@ export default function Page({ params }) {
           <button type="submit">Submit</button>
         </form>
       ) : (
-        <div>
-          <div>
-            <h3>Connected Users:</h3>
+        <div class="flex">
+          <GridContainerBoard json={jsondata} socket={s}></GridContainerBoard>
+          <div class="mr-4">
+            <h2>Connected Users:</h2>
             <ul>
               {userlist.map((user, index) => (
                 <li key={index}>{user}</li>
               ))}
             </ul>
           </div>
-          <GridContainerBoard json={jsondata} socket={s}></GridContainerBoard>
         </div>
+
       )}
     </div>
   );
