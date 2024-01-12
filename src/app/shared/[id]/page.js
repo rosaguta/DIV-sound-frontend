@@ -109,7 +109,7 @@ export default function Page({ params }) {
     <div>
       {!submitted ? (
         <div className="flex flex-col items-center justify-center">
-          <img src='https://git.digitalindividuals.com/uploads/-/system/appearance/header_logo/1/div_logo_2.png'
+          <img src='../../../div_logo_2.png'
             className="max-w-xs mb-4"
           />
           <form onSubmit={handleNameSubmit}>
