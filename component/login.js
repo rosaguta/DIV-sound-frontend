@@ -14,13 +14,17 @@ const Login = () => {
   const handleLogin = async () => {
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_AUDIO_API}/Users/Login?username=${username}&Password=${password}`);
-      const data = await response.json();
+      
+      let data = await response.text();
 
-      if (data.statusCode === 200) {
+      console.log(data)
+      if (data !== null) {
         // Successful login, redirect to /soundboard
         // Cookies.set('user', JSON.stringify(data.user), { expires: 1 , SameSite: "None", secure: true});
         // cookies().set('user',JSON.stringify(data.user))
-        setcookie(data.user)
+       console.log('a') 
+       setcookie(data)
+        console.log('b')
         router.push('/soundboard'); // Use router.push inside the component body
         // console.log('Login successful:', data.user);
       } else {
@@ -35,7 +39,7 @@ const Login = () => {
 
   return (
     <div className="flex flex-col items-center justify-center">
-      <img src='https://git.digitalindividuals.com/uploads/-/system/appearance/header_logo/1/div_logo_2.png'
+      <img src='div_logo_2.png'
             className="max-w-xs mb-4"
       />
       {errorMessage && <p className="text-red-500 mb-4">{errorMessage}</p>}
